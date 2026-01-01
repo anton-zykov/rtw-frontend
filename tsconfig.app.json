@@ -22,7 +22,28 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/assets/*": [
+        "src/assets/*"
+      ],
+      "@/features": [
+        "src/features"
+      ],
+      "@/routes": [
+        "src/routes"
+      ],
+      "@/shared/*": [
+        "src/shared/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
-  "include": ["src"]
+  "include": [
+    "src/**/*.ts"
+  ]
 }
