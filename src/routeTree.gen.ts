@@ -9,10 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as SelectTaskRouteImport } from './routes/select-task'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteRouteImport } from './routes/about/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutTRouteImport } from './routes/about/t'
 
-const AboutRoute = AboutRouteImport.update({
+const SelectTaskRoute = SelectTaskRouteImport.update({
+  id: '/select-task',
+  path: '/select-task',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRouteRoute = AboutRouteRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
@@ -22,40 +35,70 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutTRoute = AboutTRouteImport.update({
+  id: '/t',
+  path: '/t',
+  getParentRoute: () => AboutRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/select-task': typeof SelectTaskRoute
+  '/about/t': typeof AboutTRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/select-task': typeof SelectTaskRoute
+  '/about/t': typeof AboutTRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/select-task': typeof SelectTaskRoute
+  '/about/t': typeof AboutTRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/about' | '/auth' | '/select-task' | '/about/t'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/about' | '/auth' | '/select-task' | '/about/t'
+  id: '__root__' | '/' | '/about' | '/auth' | '/select-task' | '/about/t'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  AboutRouteRoute: typeof AboutRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  SelectTaskRoute: typeof SelectTaskRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/select-task': {
+      id: '/select-task'
+      path: '/select-task'
+      fullPath: '/select-task'
+      preLoaderRoute: typeof SelectTaskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+      preLoaderRoute: typeof AboutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -65,12 +108,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about/t': {
+      id: '/about/t'
+      path: '/t'
+      fullPath: '/about/t'
+      preLoaderRoute: typeof AboutTRouteImport
+      parentRoute: typeof AboutRouteRoute
+    }
   }
 }
 
+interface AboutRouteRouteChildren {
+  AboutTRoute: typeof AboutTRoute
+}
+
+const AboutRouteRouteChildren: AboutRouteRouteChildren = {
+  AboutTRoute: AboutTRoute,
+}
+
+const AboutRouteRouteWithChildren = AboutRouteRoute._addFileChildren(
+  AboutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  AboutRouteRoute: AboutRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  SelectTaskRoute: SelectTaskRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
