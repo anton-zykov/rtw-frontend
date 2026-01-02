@@ -1,6 +1,6 @@
 import { Button, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { performLogin } from '../api';
+import { login } from '../api';
 
 export function LoginForm () {
   const form = useForm({
@@ -12,7 +12,13 @@ export function LoginForm () {
   });
 
   const handleSubmit = async (values: typeof form.values) => {
-    await performLogin(values);
+    const { ok, message } = await login(values);
+
+    if (!ok) {
+      if (message === 'Invalid credentials') form.setFieldError('password', 'Неверный логин или пароль');
+      else if (message === 'User is disabled') form.setFieldError('login', 'Пользователь отключен');
+      else form.setFieldError('login', 'Неизвестная ошибка');
+    }
   };
 
   return (
