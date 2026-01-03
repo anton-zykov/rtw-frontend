@@ -1,6 +1,6 @@
-interface APISuccessResponse {
+interface APISuccessResponse<TData> {
   ok: true;
-  data: object;
+  data: TData;
   message?: undefined;
 }
 
@@ -10,4 +10,4 @@ interface APIErrorResponse {
   message: string;
 }
 
-export type APIResponse = APISuccessResponse | APIErrorResponse;
+export type APIResponse<TData = object> = APISuccessResponse<TData> | APIErrorResponse;

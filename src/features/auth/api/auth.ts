@@ -7,7 +7,11 @@ interface AuthParams {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function login ({ login, password }: AuthParams): Promise<APIResponse> {
+interface LoginData {
+  role: string;
+}
+
+export async function login ({ login, password }: AuthParams): Promise<APIResponse<LoginData>> {
   try {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
@@ -21,7 +25,7 @@ export async function login ({ login, password }: AuthParams): Promise<APIRespon
     return res.ok
       ? {
           ok: true,
-          data: {}
+          data: await res.json() as LoginData,
         }
       : {
           ok: false,

@@ -9,12 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeacherPanelRouteImport } from './routes/teacher-panel'
 import { Route as SelectTaskRouteImport } from './routes/select-task'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminPanelRouteImport } from './routes/admin-panel'
 import { Route as AboutRouteRouteImport } from './routes/about/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutTRouteImport } from './routes/about/t'
 
+const TeacherPanelRoute = TeacherPanelRouteImport.update({
+  id: '/teacher-panel',
+  path: '/teacher-panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SelectTaskRoute = SelectTaskRouteImport.update({
   id: '/select-task',
   path: '/select-task',
@@ -23,6 +30,11 @@ const SelectTaskRoute = SelectTaskRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPanelRoute = AdminPanelRouteImport.update({
+  id: '/admin-panel',
+  path: '/admin-panel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRouteRoute = AboutRouteRouteImport.update({
@@ -44,42 +56,79 @@ const AboutTRoute = AboutTRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRouteRouteWithChildren
+  '/admin-panel': typeof AdminPanelRoute
   '/auth': typeof AuthRoute
   '/select-task': typeof SelectTaskRoute
+  '/teacher-panel': typeof TeacherPanelRoute
   '/about/t': typeof AboutTRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRouteRouteWithChildren
+  '/admin-panel': typeof AdminPanelRoute
   '/auth': typeof AuthRoute
   '/select-task': typeof SelectTaskRoute
+  '/teacher-panel': typeof TeacherPanelRoute
   '/about/t': typeof AboutTRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRouteRouteWithChildren
+  '/admin-panel': typeof AdminPanelRoute
   '/auth': typeof AuthRoute
   '/select-task': typeof SelectTaskRoute
+  '/teacher-panel': typeof TeacherPanelRoute
   '/about/t': typeof AboutTRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/auth' | '/select-task' | '/about/t'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin-panel'
+    | '/auth'
+    | '/select-task'
+    | '/teacher-panel'
+    | '/about/t'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/auth' | '/select-task' | '/about/t'
-  id: '__root__' | '/' | '/about' | '/auth' | '/select-task' | '/about/t'
+  to:
+    | '/'
+    | '/about'
+    | '/admin-panel'
+    | '/auth'
+    | '/select-task'
+    | '/teacher-panel'
+    | '/about/t'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin-panel'
+    | '/auth'
+    | '/select-task'
+    | '/teacher-panel'
+    | '/about/t'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRouteRoute: typeof AboutRouteRouteWithChildren
+  AdminPanelRoute: typeof AdminPanelRoute
   AuthRoute: typeof AuthRoute
   SelectTaskRoute: typeof SelectTaskRoute
+  TeacherPanelRoute: typeof TeacherPanelRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/teacher-panel': {
+      id: '/teacher-panel'
+      path: '/teacher-panel'
+      fullPath: '/teacher-panel'
+      preLoaderRoute: typeof TeacherPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/select-task': {
       id: '/select-task'
       path: '/select-task'
@@ -92,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-panel': {
+      id: '/admin-panel'
+      path: '/admin-panel'
+      fullPath: '/admin-panel'
+      preLoaderRoute: typeof AdminPanelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -133,8 +189,10 @@ const AboutRouteRouteWithChildren = AboutRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRouteRoute: AboutRouteRouteWithChildren,
+  AdminPanelRoute: AdminPanelRoute,
   AuthRoute: AuthRoute,
   SelectTaskRoute: SelectTaskRoute,
+  TeacherPanelRoute: TeacherPanelRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

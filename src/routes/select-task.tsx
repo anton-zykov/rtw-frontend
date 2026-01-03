@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/select-task')({
-  component: RouteComponent,
+  component: SelectTask,
 });
 
-function RouteComponent () {
+function SelectTask () {
   return <div>Hello "/select-task"!</div>;
 }

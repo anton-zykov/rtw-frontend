@@ -1,8 +1,10 @@
 import { Button, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useNavigate } from '@tanstack/react-router';
 import { login } from '../api';
 
 export function LoginForm () {
+  const navigate = useNavigate();
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -12,9 +14,19 @@ export function LoginForm () {
   });
 
   const handleSubmit = async (values: typeof form.values) => {
-    const { ok, message } = await login(values);
-
-    if (!ok) {
+    const { ok, data, message } = await login(values);
+    if (ok) {
+      switch (data.role) {
+        case 'admin':
+          return navigate({ to: '/admin-panel' });
+        case 'teacher':
+          return navigate({ to: '/teacher-panel' });
+        case 'student':
+          return navigate({ to: '/select-task' });
+        default:
+          form.setFieldError('login', 'Пользователь не активирован');
+      }
+    } else {
       if (message === 'Invalid credentials') form.setFieldError('password', 'Неверный логин или пароль');
       else if (message === 'User is disabled') form.setFieldError('login', 'Пользователь отключен');
       else form.setFieldError('login', 'Неизвестная ошибка');
