@@ -1,7 +1,7 @@
 import { Button, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNavigate } from '@tanstack/react-router';
-import { login } from '../api';
+import { user } from '../model';
 
 export function LoginForm () {
   const navigate = useNavigate();
@@ -14,15 +14,15 @@ export function LoginForm () {
   });
 
   const handleSubmit = async (values: typeof form.values) => {
-    const { ok, data, message } = await login(values);
+    const { ok, data, message } = await user.login(values);
     if (ok) {
       switch (data.role) {
         case 'admin':
-          return navigate({ to: '/admin-panel' });
+          return navigate({ to: '/admin' });
         case 'teacher':
-          return navigate({ to: '/teacher-panel' });
+          return navigate({ to: '/teacher' });
         case 'student':
-          return navigate({ to: '/select-task' });
+          return navigate({ to: '/learn/select-task' });
         default:
           form.setFieldError('login', 'Пользователь не активирован');
       }

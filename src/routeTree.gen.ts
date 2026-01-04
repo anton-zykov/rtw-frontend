@@ -9,190 +9,226 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TeacherPanelRouteImport } from './routes/teacher-panel'
-import { Route as SelectTaskRouteImport } from './routes/select-task'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminPanelRouteImport } from './routes/admin-panel'
-import { Route as AboutRouteRouteImport } from './routes/about/route'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutTRouteImport } from './routes/about/t'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as AuthTeacherRouteRouteImport } from './routes/_auth/teacher/route'
+import { Route as AuthLearnRouteRouteImport } from './routes/_auth/learn/route'
+import { Route as AuthAdminRouteRouteImport } from './routes/_auth/admin/route'
+import { Route as AuthTeacherIndexRouteImport } from './routes/_auth/teacher/index'
+import { Route as AuthAdminIndexRouteImport } from './routes/_auth/admin/index'
+import { Route as AuthLearnSelectTaskRouteImport } from './routes/_auth/learn/select-task'
 
-const TeacherPanelRoute = TeacherPanelRouteImport.update({
-  id: '/teacher-panel',
-  path: '/teacher-panel',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SelectTaskRoute = SelectTaskRouteImport.update({
-  id: '/select-task',
-  path: '/select-task',
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/_auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
+const AuthTeacherRouteRoute = AuthTeacherRouteRouteImport.update({
+  id: '/teacher',
+  path: '/teacher',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
-const AdminPanelRoute = AdminPanelRouteImport.update({
-  id: '/admin-panel',
-  path: '/admin-panel',
-  getParentRoute: () => rootRouteImport,
+const AuthLearnRouteRoute = AuthLearnRouteRouteImport.update({
+  id: '/learn',
+  path: '/learn',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
-const AboutRouteRoute = AboutRouteRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
+const AuthAdminRouteRoute = AuthAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const AuthTeacherIndexRoute = AuthTeacherIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthTeacherRouteRoute,
 } as any)
-const AboutTRoute = AboutTRouteImport.update({
-  id: '/t',
-  path: '/t',
-  getParentRoute: () => AboutRouteRoute,
+const AuthAdminIndexRoute = AuthAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthAdminRouteRoute,
+} as any)
+const AuthLearnSelectTaskRoute = AuthLearnSelectTaskRouteImport.update({
+  id: '/select-task',
+  path: '/select-task',
+  getParentRoute: () => AuthLearnRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRouteRouteWithChildren
-  '/admin-panel': typeof AdminPanelRoute
-  '/auth': typeof AuthRoute
-  '/select-task': typeof SelectTaskRoute
-  '/teacher-panel': typeof TeacherPanelRoute
-  '/about/t': typeof AboutTRoute
+  '/login': typeof LoginRoute
+  '/admin': typeof AuthAdminRouteRouteWithChildren
+  '/learn': typeof AuthLearnRouteRouteWithChildren
+  '/teacher': typeof AuthTeacherRouteRouteWithChildren
+  '/learn/select-task': typeof AuthLearnSelectTaskRoute
+  '/admin/': typeof AuthAdminIndexRoute
+  '/teacher/': typeof AuthTeacherIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRouteRouteWithChildren
-  '/admin-panel': typeof AdminPanelRoute
-  '/auth': typeof AuthRoute
-  '/select-task': typeof SelectTaskRoute
-  '/teacher-panel': typeof TeacherPanelRoute
-  '/about/t': typeof AboutTRoute
+  '/login': typeof LoginRoute
+  '/learn': typeof AuthLearnRouteRouteWithChildren
+  '/learn/select-task': typeof AuthLearnSelectTaskRoute
+  '/admin': typeof AuthAdminIndexRoute
+  '/teacher': typeof AuthTeacherIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRouteRouteWithChildren
-  '/admin-panel': typeof AdminPanelRoute
-  '/auth': typeof AuthRoute
-  '/select-task': typeof SelectTaskRoute
-  '/teacher-panel': typeof TeacherPanelRoute
-  '/about/t': typeof AboutTRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_auth/admin': typeof AuthAdminRouteRouteWithChildren
+  '/_auth/learn': typeof AuthLearnRouteRouteWithChildren
+  '/_auth/teacher': typeof AuthTeacherRouteRouteWithChildren
+  '/_auth/learn/select-task': typeof AuthLearnSelectTaskRoute
+  '/_auth/admin/': typeof AuthAdminIndexRoute
+  '/_auth/teacher/': typeof AuthTeacherIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/about'
-    | '/admin-panel'
-    | '/auth'
-    | '/select-task'
-    | '/teacher-panel'
-    | '/about/t'
+    | '/login'
+    | '/admin'
+    | '/learn'
+    | '/teacher'
+    | '/learn/select-task'
+    | '/admin/'
+    | '/teacher/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/admin-panel'
-    | '/auth'
-    | '/select-task'
-    | '/teacher-panel'
-    | '/about/t'
+  to: '/login' | '/learn' | '/learn/select-task' | '/admin' | '/teacher'
   id:
     | '__root__'
-    | '/'
-    | '/about'
-    | '/admin-panel'
-    | '/auth'
-    | '/select-task'
-    | '/teacher-panel'
-    | '/about/t'
+    | '/_auth'
+    | '/login'
+    | '/_auth/admin'
+    | '/_auth/learn'
+    | '/_auth/teacher'
+    | '/_auth/learn/select-task'
+    | '/_auth/admin/'
+    | '/_auth/teacher/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRouteRoute: typeof AboutRouteRouteWithChildren
-  AdminPanelRoute: typeof AdminPanelRoute
-  AuthRoute: typeof AuthRoute
-  SelectTaskRoute: typeof SelectTaskRoute
-  TeacherPanelRoute: typeof TeacherPanelRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/teacher-panel': {
-      id: '/teacher-panel'
-      path: '/teacher-panel'
-      fullPath: '/teacher-panel'
-      preLoaderRoute: typeof TeacherPanelRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/select-task': {
-      id: '/select-task'
-      path: '/select-task'
-      fullPath: '/select-task'
-      preLoaderRoute: typeof SelectTaskRouteImport
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_auth/teacher': {
+      id: '/_auth/teacher'
+      path: '/teacher'
+      fullPath: '/teacher'
+      preLoaderRoute: typeof AuthTeacherRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/admin-panel': {
-      id: '/admin-panel'
-      path: '/admin-panel'
-      fullPath: '/admin-panel'
-      preLoaderRoute: typeof AdminPanelRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_auth/learn': {
+      id: '/_auth/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof AuthLearnRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_auth/admin': {
+      id: '/_auth/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthAdminRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/': {
-      id: '/'
+    '/_auth/teacher/': {
+      id: '/_auth/teacher/'
       path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/teacher/'
+      preLoaderRoute: typeof AuthTeacherIndexRouteImport
+      parentRoute: typeof AuthTeacherRouteRoute
     }
-    '/about/t': {
-      id: '/about/t'
-      path: '/t'
-      fullPath: '/about/t'
-      preLoaderRoute: typeof AboutTRouteImport
-      parentRoute: typeof AboutRouteRoute
+    '/_auth/admin/': {
+      id: '/_auth/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthAdminIndexRouteImport
+      parentRoute: typeof AuthAdminRouteRoute
+    }
+    '/_auth/learn/select-task': {
+      id: '/_auth/learn/select-task'
+      path: '/select-task'
+      fullPath: '/learn/select-task'
+      preLoaderRoute: typeof AuthLearnSelectTaskRouteImport
+      parentRoute: typeof AuthLearnRouteRoute
     }
   }
 }
 
-interface AboutRouteRouteChildren {
-  AboutTRoute: typeof AboutTRoute
+interface AuthAdminRouteRouteChildren {
+  AuthAdminIndexRoute: typeof AuthAdminIndexRoute
 }
 
-const AboutRouteRouteChildren: AboutRouteRouteChildren = {
-  AboutTRoute: AboutTRoute,
+const AuthAdminRouteRouteChildren: AuthAdminRouteRouteChildren = {
+  AuthAdminIndexRoute: AuthAdminIndexRoute,
 }
 
-const AboutRouteRouteWithChildren = AboutRouteRoute._addFileChildren(
-  AboutRouteRouteChildren,
+const AuthAdminRouteRouteWithChildren = AuthAdminRouteRoute._addFileChildren(
+  AuthAdminRouteRouteChildren,
+)
+
+interface AuthLearnRouteRouteChildren {
+  AuthLearnSelectTaskRoute: typeof AuthLearnSelectTaskRoute
+}
+
+const AuthLearnRouteRouteChildren: AuthLearnRouteRouteChildren = {
+  AuthLearnSelectTaskRoute: AuthLearnSelectTaskRoute,
+}
+
+const AuthLearnRouteRouteWithChildren = AuthLearnRouteRoute._addFileChildren(
+  AuthLearnRouteRouteChildren,
+)
+
+interface AuthTeacherRouteRouteChildren {
+  AuthTeacherIndexRoute: typeof AuthTeacherIndexRoute
+}
+
+const AuthTeacherRouteRouteChildren: AuthTeacherRouteRouteChildren = {
+  AuthTeacherIndexRoute: AuthTeacherIndexRoute,
+}
+
+const AuthTeacherRouteRouteWithChildren =
+  AuthTeacherRouteRoute._addFileChildren(AuthTeacherRouteRouteChildren)
+
+interface AuthRouteRouteChildren {
+  AuthAdminRouteRoute: typeof AuthAdminRouteRouteWithChildren
+  AuthLearnRouteRoute: typeof AuthLearnRouteRouteWithChildren
+  AuthTeacherRouteRoute: typeof AuthTeacherRouteRouteWithChildren
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthAdminRouteRoute: AuthAdminRouteRouteWithChildren,
+  AuthLearnRouteRoute: AuthLearnRouteRouteWithChildren,
+  AuthTeacherRouteRoute: AuthTeacherRouteRouteWithChildren,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRouteRoute: AboutRouteRouteWithChildren,
-  AdminPanelRoute: AdminPanelRoute,
-  AuthRoute: AuthRoute,
-  SelectTaskRoute: SelectTaskRoute,
-  TeacherPanelRoute: TeacherPanelRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
