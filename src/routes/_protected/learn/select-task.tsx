@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_auth/learn/select-task')({
+export const Route = createFileRoute('/_protected/learn/select-task')({
   component: SelectTaskComponent,
 });
 

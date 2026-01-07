@@ -26,18 +26,6 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/assets/*": [
-        "src/assets/*"
-      ],
-      "@/features": [
-        "src/features"
-      ],
-      "@/routes": [
-        "src/routes"
-      ],
-      "@/shared/*": [
-        "src/shared/*"
-      ],
       "@/*": [
         "src/*"
       ]

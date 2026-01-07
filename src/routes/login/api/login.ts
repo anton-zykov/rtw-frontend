@@ -1,6 +1,6 @@
 import type { APIResponse } from '@/shared/types/api';
 
-interface AuthParams {
+interface LoginParams {
   login: string;
   password: string;
 }
@@ -11,7 +11,7 @@ interface LoginData {
   role: string;
 }
 
-export async function login ({ login, password }: AuthParams): Promise<APIResponse<LoginData>> {
+export async function login ({ login, password }: LoginParams): Promise<APIResponse<LoginData>> {
   try {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',

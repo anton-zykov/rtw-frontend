@@ -1,9 +1,13 @@
 import { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
+import { context } from '@/app/context';
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context,
+});
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -14,7 +18,7 @@ declare module '@tanstack/react-router' {
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
+  const root = createRoot(rootElement);
   root.render(
     <StrictMode>
       <RouterProvider router={router} />

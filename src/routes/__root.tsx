@@ -1,10 +1,11 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Providers } from '@/shared/providers/Providers';
-import { SideMenu } from '@/features/sideMenu';
+import { Providers } from '@/app/providers';
+import { SideMenu } from '@/widgets/side-menu';
 import styles from './__root.module.css';
+import type { RouterContext } from '@/app/context';
 
-export const Route = createRootRoute({ component: RootComponent });
+export const Route = createRootRouteWithContext<RouterContext>()({ component: RootComponent });
 
 function RootComponent () {
   return (

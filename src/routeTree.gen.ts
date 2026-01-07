@@ -9,226 +9,247 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthRouteRouteImport } from './routes/_auth/route'
-import { Route as AuthTeacherRouteRouteImport } from './routes/_auth/teacher/route'
-import { Route as AuthLearnRouteRouteImport } from './routes/_auth/learn/route'
-import { Route as AuthAdminRouteRouteImport } from './routes/_auth/admin/route'
-import { Route as AuthTeacherIndexRouteImport } from './routes/_auth/teacher/index'
-import { Route as AuthAdminIndexRouteImport } from './routes/_auth/admin/index'
-import { Route as AuthLearnSelectTaskRouteImport } from './routes/_auth/learn/select-task'
+import { Route as ProtectedRouteRouteImport } from './routes/_protected/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginIndexRouteImport } from './routes/login/index'
+import { Route as ProtectedTeacherRouteRouteImport } from './routes/_protected/teacher/route'
+import { Route as ProtectedLearnRouteRouteImport } from './routes/_protected/learn/route'
+import { Route as ProtectedAdminRouteRouteImport } from './routes/_protected/admin/route'
+import { Route as ProtectedTeacherIndexRouteImport } from './routes/_protected/teacher/index'
+import { Route as ProtectedAdminIndexRouteImport } from './routes/_protected/admin/index'
+import { Route as ProtectedLearnSelectTaskRouteImport } from './routes/_protected/learn/select-task'
 
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const ProtectedRouteRoute = ProtectedRouteRouteImport.update({
+  id: '/_protected',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRouteRoute = AuthRouteRouteImport.update({
-  id: '/_auth',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthTeacherRouteRoute = AuthTeacherRouteRouteImport.update({
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedTeacherRouteRoute = ProtectedTeacherRouteRouteImport.update({
   id: '/teacher',
   path: '/teacher',
-  getParentRoute: () => AuthRouteRoute,
+  getParentRoute: () => ProtectedRouteRoute,
 } as any)
-const AuthLearnRouteRoute = AuthLearnRouteRouteImport.update({
+const ProtectedLearnRouteRoute = ProtectedLearnRouteRouteImport.update({
   id: '/learn',
   path: '/learn',
-  getParentRoute: () => AuthRouteRoute,
+  getParentRoute: () => ProtectedRouteRoute,
 } as any)
-const AuthAdminRouteRoute = AuthAdminRouteRouteImport.update({
+const ProtectedAdminRouteRoute = ProtectedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
-  getParentRoute: () => AuthRouteRoute,
+  getParentRoute: () => ProtectedRouteRoute,
 } as any)
-const AuthTeacherIndexRoute = AuthTeacherIndexRouteImport.update({
+const ProtectedTeacherIndexRoute = ProtectedTeacherIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthTeacherRouteRoute,
+  getParentRoute: () => ProtectedTeacherRouteRoute,
 } as any)
-const AuthAdminIndexRoute = AuthAdminIndexRouteImport.update({
+const ProtectedAdminIndexRoute = ProtectedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthAdminRouteRoute,
+  getParentRoute: () => ProtectedAdminRouteRoute,
 } as any)
-const AuthLearnSelectTaskRoute = AuthLearnSelectTaskRouteImport.update({
-  id: '/select-task',
-  path: '/select-task',
-  getParentRoute: () => AuthLearnRouteRoute,
-} as any)
+const ProtectedLearnSelectTaskRoute =
+  ProtectedLearnSelectTaskRouteImport.update({
+    id: '/select-task',
+    path: '/select-task',
+    getParentRoute: () => ProtectedLearnRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/login': typeof LoginRoute
-  '/admin': typeof AuthAdminRouteRouteWithChildren
-  '/learn': typeof AuthLearnRouteRouteWithChildren
-  '/teacher': typeof AuthTeacherRouteRouteWithChildren
-  '/learn/select-task': typeof AuthLearnSelectTaskRoute
-  '/admin/': typeof AuthAdminIndexRoute
-  '/teacher/': typeof AuthTeacherIndexRoute
+  '/': typeof IndexRoute
+  '/admin': typeof ProtectedAdminRouteRouteWithChildren
+  '/learn': typeof ProtectedLearnRouteRouteWithChildren
+  '/teacher': typeof ProtectedTeacherRouteRouteWithChildren
+  '/login': typeof LoginIndexRoute
+  '/learn/select-task': typeof ProtectedLearnSelectTaskRoute
+  '/admin/': typeof ProtectedAdminIndexRoute
+  '/teacher/': typeof ProtectedTeacherIndexRoute
 }
 export interface FileRoutesByTo {
-  '/login': typeof LoginRoute
-  '/learn': typeof AuthLearnRouteRouteWithChildren
-  '/learn/select-task': typeof AuthLearnSelectTaskRoute
-  '/admin': typeof AuthAdminIndexRoute
-  '/teacher': typeof AuthTeacherIndexRoute
+  '/': typeof IndexRoute
+  '/learn': typeof ProtectedLearnRouteRouteWithChildren
+  '/login': typeof LoginIndexRoute
+  '/learn/select-task': typeof ProtectedLearnSelectTaskRoute
+  '/admin': typeof ProtectedAdminIndexRoute
+  '/teacher': typeof ProtectedTeacherIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_auth': typeof AuthRouteRouteWithChildren
-  '/login': typeof LoginRoute
-  '/_auth/admin': typeof AuthAdminRouteRouteWithChildren
-  '/_auth/learn': typeof AuthLearnRouteRouteWithChildren
-  '/_auth/teacher': typeof AuthTeacherRouteRouteWithChildren
-  '/_auth/learn/select-task': typeof AuthLearnSelectTaskRoute
-  '/_auth/admin/': typeof AuthAdminIndexRoute
-  '/_auth/teacher/': typeof AuthTeacherIndexRoute
+  '/': typeof IndexRoute
+  '/_protected': typeof ProtectedRouteRouteWithChildren
+  '/_protected/admin': typeof ProtectedAdminRouteRouteWithChildren
+  '/_protected/learn': typeof ProtectedLearnRouteRouteWithChildren
+  '/_protected/teacher': typeof ProtectedTeacherRouteRouteWithChildren
+  '/login/': typeof LoginIndexRoute
+  '/_protected/learn/select-task': typeof ProtectedLearnSelectTaskRoute
+  '/_protected/admin/': typeof ProtectedAdminIndexRoute
+  '/_protected/teacher/': typeof ProtectedTeacherIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/login'
+    | '/'
     | '/admin'
     | '/learn'
     | '/teacher'
+    | '/login'
     | '/learn/select-task'
     | '/admin/'
     | '/teacher/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/learn' | '/learn/select-task' | '/admin' | '/teacher'
+  to: '/' | '/learn' | '/login' | '/learn/select-task' | '/admin' | '/teacher'
   id:
     | '__root__'
-    | '/_auth'
-    | '/login'
-    | '/_auth/admin'
-    | '/_auth/learn'
-    | '/_auth/teacher'
-    | '/_auth/learn/select-task'
-    | '/_auth/admin/'
-    | '/_auth/teacher/'
+    | '/'
+    | '/_protected'
+    | '/_protected/admin'
+    | '/_protected/learn'
+    | '/_protected/teacher'
+    | '/login/'
+    | '/_protected/learn/select-task'
+    | '/_protected/admin/'
+    | '/_protected/teacher/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
-  LoginRoute: typeof LoginRoute
+  IndexRoute: typeof IndexRoute
+  ProtectedRouteRoute: typeof ProtectedRouteRouteWithChildren
+  LoginIndexRoute: typeof LoginIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_auth': {
-      id: '/_auth'
+    '/_protected': {
+      id: '/_protected'
       path: ''
       fullPath: ''
-      preLoaderRoute: typeof AuthRouteRouteImport
+      preLoaderRoute: typeof ProtectedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_auth/teacher': {
-      id: '/_auth/teacher'
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login/': {
+      id: '/login/'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected/teacher': {
+      id: '/_protected/teacher'
       path: '/teacher'
       fullPath: '/teacher'
-      preLoaderRoute: typeof AuthTeacherRouteRouteImport
-      parentRoute: typeof AuthRouteRoute
+      preLoaderRoute: typeof ProtectedTeacherRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
     }
-    '/_auth/learn': {
-      id: '/_auth/learn'
+    '/_protected/learn': {
+      id: '/_protected/learn'
       path: '/learn'
       fullPath: '/learn'
-      preLoaderRoute: typeof AuthLearnRouteRouteImport
-      parentRoute: typeof AuthRouteRoute
+      preLoaderRoute: typeof ProtectedLearnRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
     }
-    '/_auth/admin': {
-      id: '/_auth/admin'
+    '/_protected/admin': {
+      id: '/_protected/admin'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AuthAdminRouteRouteImport
-      parentRoute: typeof AuthRouteRoute
+      preLoaderRoute: typeof ProtectedAdminRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
     }
-    '/_auth/teacher/': {
-      id: '/_auth/teacher/'
+    '/_protected/teacher/': {
+      id: '/_protected/teacher/'
       path: '/'
       fullPath: '/teacher/'
-      preLoaderRoute: typeof AuthTeacherIndexRouteImport
-      parentRoute: typeof AuthTeacherRouteRoute
+      preLoaderRoute: typeof ProtectedTeacherIndexRouteImport
+      parentRoute: typeof ProtectedTeacherRouteRoute
     }
-    '/_auth/admin/': {
-      id: '/_auth/admin/'
+    '/_protected/admin/': {
+      id: '/_protected/admin/'
       path: '/'
       fullPath: '/admin/'
-      preLoaderRoute: typeof AuthAdminIndexRouteImport
-      parentRoute: typeof AuthAdminRouteRoute
+      preLoaderRoute: typeof ProtectedAdminIndexRouteImport
+      parentRoute: typeof ProtectedAdminRouteRoute
     }
-    '/_auth/learn/select-task': {
-      id: '/_auth/learn/select-task'
+    '/_protected/learn/select-task': {
+      id: '/_protected/learn/select-task'
       path: '/select-task'
       fullPath: '/learn/select-task'
-      preLoaderRoute: typeof AuthLearnSelectTaskRouteImport
-      parentRoute: typeof AuthLearnRouteRoute
+      preLoaderRoute: typeof ProtectedLearnSelectTaskRouteImport
+      parentRoute: typeof ProtectedLearnRouteRoute
     }
   }
 }
 
-interface AuthAdminRouteRouteChildren {
-  AuthAdminIndexRoute: typeof AuthAdminIndexRoute
+interface ProtectedAdminRouteRouteChildren {
+  ProtectedAdminIndexRoute: typeof ProtectedAdminIndexRoute
 }
 
-const AuthAdminRouteRouteChildren: AuthAdminRouteRouteChildren = {
-  AuthAdminIndexRoute: AuthAdminIndexRoute,
+const ProtectedAdminRouteRouteChildren: ProtectedAdminRouteRouteChildren = {
+  ProtectedAdminIndexRoute: ProtectedAdminIndexRoute,
 }
 
-const AuthAdminRouteRouteWithChildren = AuthAdminRouteRoute._addFileChildren(
-  AuthAdminRouteRouteChildren,
-)
+const ProtectedAdminRouteRouteWithChildren =
+  ProtectedAdminRouteRoute._addFileChildren(ProtectedAdminRouteRouteChildren)
 
-interface AuthLearnRouteRouteChildren {
-  AuthLearnSelectTaskRoute: typeof AuthLearnSelectTaskRoute
+interface ProtectedLearnRouteRouteChildren {
+  ProtectedLearnSelectTaskRoute: typeof ProtectedLearnSelectTaskRoute
 }
 
-const AuthLearnRouteRouteChildren: AuthLearnRouteRouteChildren = {
-  AuthLearnSelectTaskRoute: AuthLearnSelectTaskRoute,
+const ProtectedLearnRouteRouteChildren: ProtectedLearnRouteRouteChildren = {
+  ProtectedLearnSelectTaskRoute: ProtectedLearnSelectTaskRoute,
 }
 
-const AuthLearnRouteRouteWithChildren = AuthLearnRouteRoute._addFileChildren(
-  AuthLearnRouteRouteChildren,
-)
+const ProtectedLearnRouteRouteWithChildren =
+  ProtectedLearnRouteRoute._addFileChildren(ProtectedLearnRouteRouteChildren)
 
-interface AuthTeacherRouteRouteChildren {
-  AuthTeacherIndexRoute: typeof AuthTeacherIndexRoute
+interface ProtectedTeacherRouteRouteChildren {
+  ProtectedTeacherIndexRoute: typeof ProtectedTeacherIndexRoute
 }
 
-const AuthTeacherRouteRouteChildren: AuthTeacherRouteRouteChildren = {
-  AuthTeacherIndexRoute: AuthTeacherIndexRoute,
+const ProtectedTeacherRouteRouteChildren: ProtectedTeacherRouteRouteChildren = {
+  ProtectedTeacherIndexRoute: ProtectedTeacherIndexRoute,
 }
 
-const AuthTeacherRouteRouteWithChildren =
-  AuthTeacherRouteRoute._addFileChildren(AuthTeacherRouteRouteChildren)
+const ProtectedTeacherRouteRouteWithChildren =
+  ProtectedTeacherRouteRoute._addFileChildren(
+    ProtectedTeacherRouteRouteChildren,
+  )
 
-interface AuthRouteRouteChildren {
-  AuthAdminRouteRoute: typeof AuthAdminRouteRouteWithChildren
-  AuthLearnRouteRoute: typeof AuthLearnRouteRouteWithChildren
-  AuthTeacherRouteRoute: typeof AuthTeacherRouteRouteWithChildren
+interface ProtectedRouteRouteChildren {
+  ProtectedAdminRouteRoute: typeof ProtectedAdminRouteRouteWithChildren
+  ProtectedLearnRouteRoute: typeof ProtectedLearnRouteRouteWithChildren
+  ProtectedTeacherRouteRoute: typeof ProtectedTeacherRouteRouteWithChildren
 }
 
-const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthAdminRouteRoute: AuthAdminRouteRouteWithChildren,
-  AuthLearnRouteRoute: AuthLearnRouteRouteWithChildren,
-  AuthTeacherRouteRoute: AuthTeacherRouteRouteWithChildren,
+const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
+  ProtectedAdminRouteRoute: ProtectedAdminRouteRouteWithChildren,
+  ProtectedLearnRouteRoute: ProtectedLearnRouteRouteWithChildren,
+  ProtectedTeacherRouteRoute: ProtectedTeacherRouteRouteWithChildren,
 }
 
-const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
-  AuthRouteRouteChildren,
+const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(
+  ProtectedRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  AuthRouteRoute: AuthRouteRouteWithChildren,
-  LoginRoute: LoginRoute,
+  IndexRoute: IndexRoute,
+  ProtectedRouteRoute: ProtectedRouteRouteWithChildren,
+  LoginIndexRoute: LoginIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

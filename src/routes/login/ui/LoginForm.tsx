@@ -1,7 +1,7 @@
 import { Button, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNavigate } from '@tanstack/react-router';
-import { user } from '../model';
+import { login } from '../api';
 
 export function LoginForm () {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export function LoginForm () {
   });
 
   const handleSubmit = async (values: typeof form.values) => {
-    const { ok, data, message } = await user.login(values);
+    const { ok, data, message } = await login(values);
     if (ok) {
       switch (data.role) {
         case 'admin':
