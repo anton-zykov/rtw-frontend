@@ -32,7 +32,8 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      '@stylistic/jsx-quotes': ['error', 'prefer-double']
+      '@stylistic/jsx-quotes': ['error', 'prefer-double'],
+      '@typescript-eslint/no-non-null-assertion': 'off',
     }
   },
 ]);

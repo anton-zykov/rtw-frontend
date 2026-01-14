@@ -1,9 +1,34 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { getTaskTypes, mapTaskNames } from '@/entities/student';
+import { Button, Stack, Text } from '@mantine/core';
 
 export const Route = createFileRoute('/_protected/learn/select-task')({
   component: SelectTaskComponent,
+  loader: async ({ context }) => {
+    const res = await getTaskTypes({ id: context.userStore.user!.id });
+    if (!res.ok) throw new Error(res.message);
+    return {
+      taskTypes: res.data.taskTypes,
+    };
+  },
+  pendingComponent: () => <div>Loading tasks...</div>,
+  errorComponent: ({ error }) => <div>{error.message}</div>,
 });
 
 function SelectTaskComponent () {
-  return <div>Hello "/select-task"!</div>;
+  const { taskTypes } = Route.useLoaderData();
+  return (
+    <div>
+      <Stack
+        align="stretch"
+        justify="flex-start"
+        gap="md"
+      >
+        <Text>Выберите тип задания</Text>
+        {Array.from(taskTypes).map((taskType) => (
+          <Button key={taskType}>{mapTaskNames[taskType]}</Button>
+        ))}
+      </Stack>
+    </div>
+  );
 }
