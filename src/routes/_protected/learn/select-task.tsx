@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { getTaskTypes, mapTaskNames } from '@/entities/student';
 import { Button, Stack, Text } from '@mantine/core';
 
@@ -24,9 +24,9 @@ function SelectTaskComponent () {
         justify="flex-start"
         gap="md"
       >
-        <Text>Выберите тип задания</Text>
+        <Text>Чем сегодня займемся?</Text>
         {Array.from(taskTypes).map((taskType) => (
-          <Button key={taskType}>{mapTaskNames[taskType]}</Button>
+          <Button key={taskType} component={Link} to={`/learn/${taskType}/`}>{mapTaskNames[taskType]}</Button>
         ))}
       </Stack>
     </div>
