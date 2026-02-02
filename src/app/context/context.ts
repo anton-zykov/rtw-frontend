@@ -1,9 +1,9 @@
-import { UserStore } from '@/entities/user';
+import type { useUser } from '@/entities/user';
 
 export interface RouterContext {
-  userStore: UserStore;
+  user: ReturnType<typeof useUser>;
 }
 
 export const context = {
-  userStore: new UserStore(),
+  user: undefined!,
 } satisfies RouterContext;

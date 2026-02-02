@@ -1,7 +1,13 @@
-import { useLocation } from '@tanstack/react-router';
+import { useUser } from '@/entities/user';
+import { Logout } from './Logout';
 
 export function SideMenu () {
-  const location = useLocation();
-
-  return <div>{location.pathname.split('/')[1]}</div>;
+  const { details } = useUser();
+  
+  return (
+    <>
+      <div>Добро пожаловать {details?.id}</div>
+      <Logout />
+    </>
+  );
 }

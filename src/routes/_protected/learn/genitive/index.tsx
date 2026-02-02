@@ -10,11 +10,11 @@ import styles from './index.module.css';
 export const Route = createFileRoute('/_protected/learn/genitive/')({
   component: GenitiveIndexComponent,
   loader: async ({ context }) => {
-    const res = await getGenitiveExercise({ id: context.userStore.user!.id });
+    const res = await getGenitiveExercise({ id: context.user.details!.id });
     if (!res.ok) throw new Error(res.message);
     return {
       exercise: res.data.exercise.map(task => ({ ...task, options: task.options.sort(() => Math.random() - 0.5) })),
-      userId: context.userStore.user!.id,
+      userId: context.user.details!.id,
     };
   },
   pendingComponent: () => <div>Загружаем упражнение...</div>,

@@ -33,7 +33,7 @@ export default defineConfig([
     },
     rules: {
       '@stylistic/jsx-quotes': ['error', 'prefer-double'],
-      '@stylistic/no-void': 'off',
+      '@eslint/no-void': ['error', { allowAsStatement: true }],
       '@typescript-eslint/no-non-null-assertion': 'off',
     }
   },

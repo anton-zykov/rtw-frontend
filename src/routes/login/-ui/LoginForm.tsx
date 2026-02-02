@@ -1,10 +1,11 @@
 import { Button, Group, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useNavigate, useRouteContext } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
+import { useUser } from '@/entities/user';
 
 export function LoginForm () {
   const navigate = useNavigate();
-  const { userStore } = useRouteContext({ from: '__root__' });
+  const { login } = useUser();
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -14,7 +15,7 @@ export function LoginForm () {
   });
 
   const handleSubmit = async (values: typeof form.values) => {
-    const { ok, data, message } = await userStore.login(values);
+    const { ok, data, message } = await login(values);
     if (ok) {
       switch (data.role) {
         case 'admin':

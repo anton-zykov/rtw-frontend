@@ -1,17 +1,16 @@
 import { createRootRouteWithContext, Outlet, redirect, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Providers } from '@/app/providers';
 import { SideMenu } from '@/widgets/side-menu';
 import { AppShell, Burger, Flex, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 // import styles from './__root.module.css';
-import type { RouterContext } from '@/app/context';
+import type { RouterContext } from '@/app';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
   beforeLoad: async ({ context }) => {
-    if (context.userStore.user === null) {
-      const res = await context.userStore.refresh();
+    if (context.user.details === null) {
+      const res = await context.user.refresh();
       if (!res.ok && location.pathname !== '/login') {
         return redirect({ to: '/login', throw: true });
       }
@@ -24,7 +23,7 @@ function RootComponent () {
   const location = useLocation();
 
   return (
-    <Providers>
+    <>
       <AppShell
         padding="md"
         header={{ height: 60 }}
@@ -56,6 +55,6 @@ function RootComponent () {
         </AppShell.Main>
       </AppShell>
       <TanStackRouterDevtools />
-    </Providers>
+    </>
   );
 }
