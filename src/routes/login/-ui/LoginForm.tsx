@@ -10,7 +10,7 @@ export function LoginForm () {
     mode: 'uncontrolled',
     initialValues: {
       login: '',
-      password: '',
+      password: 'placeholder',
     },
   });
 
@@ -44,6 +44,7 @@ export function LoginForm () {
       />
 
       <PasswordInput
+        disabled
         label="Пароль (если есть)"
         key={form.key('password')}
         {...form.getInputProps('password')}
