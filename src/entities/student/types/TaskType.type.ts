@@ -1,1 +1,1 @@
-export type TaskType = 'genitive' | 'stress' | 'tricky';
+export type TaskType = 'genitive' | 'stress' | 'tricky' | 'adverbs';

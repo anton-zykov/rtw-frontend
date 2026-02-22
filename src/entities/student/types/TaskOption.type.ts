@@ -1,4 +1,4 @@
-export interface TaskOption {
+interface TaskOption {
   word: string;
   isCorrect: boolean;
 }

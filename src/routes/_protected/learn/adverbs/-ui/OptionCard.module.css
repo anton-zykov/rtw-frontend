@@ -1,0 +1,27 @@
+.root {
+  position: relative;
+  padding: var(--mantine-spacing-md);
+  transition: border-color 150ms ease;
+
+  &[data-checked] {
+    border-color: var(--mantine-primary-color-filled);
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--mantine-color-gray-0);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &[data-correct='true'] {
+    background-color: var(--mantine-color-green-1);
+    border-color: var(--mantine-color-green-6);
+  }
+
+  &[data-correct='false'] {
+    background-color: var(--mantine-color-red-1);
+    border-color: var(--mantine-color-red-6);
+  }
+}

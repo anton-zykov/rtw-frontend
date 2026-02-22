@@ -3,22 +3,22 @@ import type { UUID } from '@/shared/types/uuid';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-interface CheckExerciseAnswersParams {
+interface CheckGenitiveExerciseAnswersParams {
   userId: UUID;
   exercise: {
-    taskId: UUID,
-    answer: string
+    taskId: UUID;
+    answer: string;
   }[];
 }
 
-interface CheckExerciseAnswersData {
+interface CheckGenitiveExerciseAnswersData {
   checkedTasks: {
     taskId: UUID;
     correct: boolean;
   }[];
 }
 
-export async function checkExerciseAnswers ({ userId, exercise }: CheckExerciseAnswersParams): Promise<APIResponse<CheckExerciseAnswersData>> {
+export async function checkGenitiveExerciseAnswers ({ userId, exercise }: CheckGenitiveExerciseAnswersParams): Promise<APIResponse<CheckGenitiveExerciseAnswersData>> {
   try {
     const response = await fetch(`${API_URL}/genitive-task/exercise/check`, {
       method: 'POST',

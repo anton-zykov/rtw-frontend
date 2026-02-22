@@ -21,6 +21,7 @@ import { Route as ProtectedLearnSelectTaskRouteImport } from './routes/_protecte
 import { Route as ProtectedLearnTrickyIndexRouteImport } from './routes/_protected/learn/tricky/index'
 import { Route as ProtectedLearnStressIndexRouteImport } from './routes/_protected/learn/stress/index'
 import { Route as ProtectedLearnGenitiveIndexRouteImport } from './routes/_protected/learn/genitive/index'
+import { Route as ProtectedLearnAdverbsIndexRouteImport } from './routes/_protected/learn/adverbs/index'
 
 const ProtectedRouteRoute = ProtectedRouteRouteImport.update({
   id: '/_protected',
@@ -85,6 +86,12 @@ const ProtectedLearnGenitiveIndexRoute =
     path: '/genitive/',
     getParentRoute: () => ProtectedLearnRouteRoute,
   } as any)
+const ProtectedLearnAdverbsIndexRoute =
+  ProtectedLearnAdverbsIndexRouteImport.update({
+    id: '/adverbs/',
+    path: '/adverbs/',
+    getParentRoute: () => ProtectedLearnRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/learn/select-task': typeof ProtectedLearnSelectTaskRoute
   '/admin/': typeof ProtectedAdminIndexRoute
   '/teacher/': typeof ProtectedTeacherIndexRoute
+  '/learn/adverbs': typeof ProtectedLearnAdverbsIndexRoute
   '/learn/genitive': typeof ProtectedLearnGenitiveIndexRoute
   '/learn/stress': typeof ProtectedLearnStressIndexRoute
   '/learn/tricky': typeof ProtectedLearnTrickyIndexRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
   '/learn/select-task': typeof ProtectedLearnSelectTaskRoute
   '/admin': typeof ProtectedAdminIndexRoute
   '/teacher': typeof ProtectedTeacherIndexRoute
+  '/learn/adverbs': typeof ProtectedLearnAdverbsIndexRoute
   '/learn/genitive': typeof ProtectedLearnGenitiveIndexRoute
   '/learn/stress': typeof ProtectedLearnStressIndexRoute
   '/learn/tricky': typeof ProtectedLearnTrickyIndexRoute
@@ -121,6 +130,7 @@ export interface FileRoutesById {
   '/_protected/learn/select-task': typeof ProtectedLearnSelectTaskRoute
   '/_protected/admin/': typeof ProtectedAdminIndexRoute
   '/_protected/teacher/': typeof ProtectedTeacherIndexRoute
+  '/_protected/learn/adverbs/': typeof ProtectedLearnAdverbsIndexRoute
   '/_protected/learn/genitive/': typeof ProtectedLearnGenitiveIndexRoute
   '/_protected/learn/stress/': typeof ProtectedLearnStressIndexRoute
   '/_protected/learn/tricky/': typeof ProtectedLearnTrickyIndexRoute
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/learn/select-task'
     | '/admin/'
     | '/teacher/'
+    | '/learn/adverbs'
     | '/learn/genitive'
     | '/learn/stress'
     | '/learn/tricky'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/learn/select-task'
     | '/admin'
     | '/teacher'
+    | '/learn/adverbs'
     | '/learn/genitive'
     | '/learn/stress'
     | '/learn/tricky'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
     | '/_protected/learn/select-task'
     | '/_protected/admin/'
     | '/_protected/teacher/'
+    | '/_protected/learn/adverbs/'
     | '/_protected/learn/genitive/'
     | '/_protected/learn/stress/'
     | '/_protected/learn/tricky/'
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedLearnGenitiveIndexRouteImport
       parentRoute: typeof ProtectedLearnRouteRoute
     }
+    '/_protected/learn/adverbs/': {
+      id: '/_protected/learn/adverbs/'
+      path: '/adverbs'
+      fullPath: '/learn/adverbs'
+      preLoaderRoute: typeof ProtectedLearnAdverbsIndexRouteImport
+      parentRoute: typeof ProtectedLearnRouteRoute
+    }
   }
 }
 
@@ -274,6 +294,7 @@ const ProtectedAdminRouteRouteWithChildren =
 
 interface ProtectedLearnRouteRouteChildren {
   ProtectedLearnSelectTaskRoute: typeof ProtectedLearnSelectTaskRoute
+  ProtectedLearnAdverbsIndexRoute: typeof ProtectedLearnAdverbsIndexRoute
   ProtectedLearnGenitiveIndexRoute: typeof ProtectedLearnGenitiveIndexRoute
   ProtectedLearnStressIndexRoute: typeof ProtectedLearnStressIndexRoute
   ProtectedLearnTrickyIndexRoute: typeof ProtectedLearnTrickyIndexRoute
@@ -281,6 +302,7 @@ interface ProtectedLearnRouteRouteChildren {
 
 const ProtectedLearnRouteRouteChildren: ProtectedLearnRouteRouteChildren = {
   ProtectedLearnSelectTaskRoute: ProtectedLearnSelectTaskRoute,
+  ProtectedLearnAdverbsIndexRoute: ProtectedLearnAdverbsIndexRoute,
   ProtectedLearnGenitiveIndexRoute: ProtectedLearnGenitiveIndexRoute,
   ProtectedLearnStressIndexRoute: ProtectedLearnStressIndexRoute,
   ProtectedLearnTrickyIndexRoute: ProtectedLearnTrickyIndexRoute,

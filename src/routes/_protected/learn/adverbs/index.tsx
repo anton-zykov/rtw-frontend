@@ -1,16 +1,16 @@
 import { useCallback, useMemo, useState } from 'react';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
-import { checkGenitiveExerciseAnswers, getGenitiveExercise } from '@/entities/student';
+import { checkAdverbsExerciseAnswers, getAdverbsExercise } from '@/entities/student';
 import { Button, Grid, Radio, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { OptionCard } from './-ui/OptionCard';
 import type { UUID } from '@/shared/types/uuid';
 import styles from './index.module.css';
 
-export const Route = createFileRoute('/_protected/learn/genitive/')({
-  component: GenitiveIndexComponent,
+export const Route = createFileRoute('/_protected/learn/adverbs/')({
+  component: AdverbsIndexComponent,
   loader: async ({ context }) => {
-    const res = await getGenitiveExercise({ id: context.user.details!.id });
+    const res = await getAdverbsExercise({ id: context.user.details!.id });
     if (!res.ok) throw new Error(res.message);
     return {
       exercise: res.data.exercise.map(task => ({ ...task, options: task.options.sort(() => Math.random() - 0.5) })),
@@ -21,7 +21,7 @@ export const Route = createFileRoute('/_protected/learn/genitive/')({
   errorComponent: ({ error }) => <div>{error.message}</div>,
 });
 
-function GenitiveIndexComponent () {
+function AdverbsIndexComponent () {
   const router = useRouter();
   const { exercise, userId } = Route.useLoaderData();
   const [formStage, setFormStage] = useState<'solving' | 'checking' | 'check-error' | 'checked'>('solving');
@@ -46,7 +46,7 @@ function GenitiveIndexComponent () {
   const handleSubmit = async (values: Record<string, string>) => {
     setFormStage('checking');
     try {
-      const res = await checkGenitiveExerciseAnswers({
+      const res = await checkAdverbsExerciseAnswers({
         userId,
         exercise: Object.entries(values).map(([taskId, answer]) => ({ taskId, answer })),
       });
@@ -93,11 +93,8 @@ function GenitiveIndexComponent () {
           {...form.getInputProps(task.taskId)}
         >
           <Grid>
-            <Grid.Col span={4}>
-              <Text>{task.nominative}</Text>
-            </Grid.Col>
             {task.options.map((option) => (
-              <Grid.Col key={option.word} span={4}>
+              <Grid.Col key={option.word} span={6}>
                 <OptionCard
                   value={option.word}
                   correct={getCorrect(task.taskId, option.word)}
