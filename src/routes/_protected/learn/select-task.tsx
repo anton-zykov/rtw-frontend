@@ -5,7 +5,8 @@ import { Button, Stack, Text } from '@mantine/core';
 export const Route = createFileRoute('/_protected/learn/select-task')({
   component: SelectTaskComponent,
   loader: async ({ context }) => {
-    const res = await getTaskTypes({ id: context.user.details!.id });
+    const details = await context.user.getDetails();
+    const res = await getTaskTypes({ id: details!.id });
     if (!res.ok) throw new Error(res.message);
     return {
       taskTypes: res.data.taskTypes,

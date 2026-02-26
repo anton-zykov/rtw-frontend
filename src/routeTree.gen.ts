@@ -18,6 +18,7 @@ import { Route as ProtectedAdminRouteRouteImport } from './routes/_protected/adm
 import { Route as ProtectedTeacherIndexRouteImport } from './routes/_protected/teacher/index'
 import { Route as ProtectedAdminIndexRouteImport } from './routes/_protected/admin/index'
 import { Route as ProtectedLearnSelectTaskRouteImport } from './routes/_protected/learn/select-task'
+import { Route as ProtectedTeacherMyStudentsIndexRouteImport } from './routes/_protected/teacher/my-students/index'
 import { Route as ProtectedLearnTrickyIndexRouteImport } from './routes/_protected/learn/tricky/index'
 import { Route as ProtectedLearnStressIndexRouteImport } from './routes/_protected/learn/stress/index'
 import { Route as ProtectedLearnGenitiveIndexRouteImport } from './routes/_protected/learn/genitive/index'
@@ -68,6 +69,12 @@ const ProtectedLearnSelectTaskRoute =
     path: '/select-task',
     getParentRoute: () => ProtectedLearnRouteRoute,
   } as any)
+const ProtectedTeacherMyStudentsIndexRoute =
+  ProtectedTeacherMyStudentsIndexRouteImport.update({
+    id: '/my-students/',
+    path: '/my-students/',
+    getParentRoute: () => ProtectedTeacherRouteRoute,
+  } as any)
 const ProtectedLearnTrickyIndexRoute =
   ProtectedLearnTrickyIndexRouteImport.update({
     id: '/tricky/',
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/learn/genitive': typeof ProtectedLearnGenitiveIndexRoute
   '/learn/stress': typeof ProtectedLearnStressIndexRoute
   '/learn/tricky': typeof ProtectedLearnTrickyIndexRoute
+  '/teacher/my-students': typeof ProtectedTeacherMyStudentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +126,7 @@ export interface FileRoutesByTo {
   '/learn/genitive': typeof ProtectedLearnGenitiveIndexRoute
   '/learn/stress': typeof ProtectedLearnStressIndexRoute
   '/learn/tricky': typeof ProtectedLearnTrickyIndexRoute
+  '/teacher/my-students': typeof ProtectedTeacherMyStudentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +143,7 @@ export interface FileRoutesById {
   '/_protected/learn/genitive/': typeof ProtectedLearnGenitiveIndexRoute
   '/_protected/learn/stress/': typeof ProtectedLearnStressIndexRoute
   '/_protected/learn/tricky/': typeof ProtectedLearnTrickyIndexRoute
+  '/_protected/teacher/my-students/': typeof ProtectedTeacherMyStudentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/learn/genitive'
     | '/learn/stress'
     | '/learn/tricky'
+    | '/teacher/my-students'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/learn/genitive'
     | '/learn/stress'
     | '/learn/tricky'
+    | '/teacher/my-students'
   id:
     | '__root__'
     | '/'
@@ -177,6 +189,7 @@ export interface FileRouteTypes {
     | '/_protected/learn/genitive/'
     | '/_protected/learn/stress/'
     | '/_protected/learn/tricky/'
+    | '/_protected/teacher/my-students/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedLearnSelectTaskRouteImport
       parentRoute: typeof ProtectedLearnRouteRoute
     }
+    '/_protected/teacher/my-students/': {
+      id: '/_protected/teacher/my-students/'
+      path: '/my-students'
+      fullPath: '/teacher/my-students'
+      preLoaderRoute: typeof ProtectedTeacherMyStudentsIndexRouteImport
+      parentRoute: typeof ProtectedTeacherRouteRoute
+    }
     '/_protected/learn/tricky/': {
       id: '/_protected/learn/tricky/'
       path: '/tricky'
@@ -313,10 +333,12 @@ const ProtectedLearnRouteRouteWithChildren =
 
 interface ProtectedTeacherRouteRouteChildren {
   ProtectedTeacherIndexRoute: typeof ProtectedTeacherIndexRoute
+  ProtectedTeacherMyStudentsIndexRoute: typeof ProtectedTeacherMyStudentsIndexRoute
 }
 
 const ProtectedTeacherRouteRouteChildren: ProtectedTeacherRouteRouteChildren = {
   ProtectedTeacherIndexRoute: ProtectedTeacherIndexRoute,
+  ProtectedTeacherMyStudentsIndexRoute: ProtectedTeacherMyStudentsIndexRoute,
 }
 
 const ProtectedTeacherRouteRouteWithChildren =

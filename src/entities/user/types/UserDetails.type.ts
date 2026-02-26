@@ -1,4 +1,6 @@
 export interface UserDetails {
   id: string;
-  role: string;
+  role: UserRole;
 }
+
+export type UserRole = 'admin' | 'teacher' | 'student' | 'not-set';

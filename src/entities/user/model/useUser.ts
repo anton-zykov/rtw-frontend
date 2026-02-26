@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import { login as loginApi } from '../api/login';
 import { logout as logoutApi } from '../api/logout';
 import { me as meApi } from '../api/me';
@@ -6,19 +6,6 @@ import type { UserDetails } from '../types/UserDetails.type';
 
 export function useUserImpl () {
   const [details, setDetails] = useState<UserDetails | null>(null);
-
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const res = await meApi();
-        if (res.ok) setDetails(res.data);
-        else setDetails(null);
-      } catch {
-        setDetails(null);
-      }
-    };
-    void loadUser();
-  }, []);
 
   const refresh = useCallback(async () => {
     const res = await meApi();
@@ -29,10 +16,6 @@ export function useUserImpl () {
 
   const login = useCallback(async (params: { login: string; password: string }) => {
     const res = await loginApi(params);
-    if (res.ok) {
-      const refreshRes = await meApi();
-      if (refreshRes.ok) setDetails(refreshRes.data);
-    }
     return res;
   }, []);
 
@@ -42,8 +25,14 @@ export function useUserImpl () {
     return res;
   }, []);
 
+  const getDetails = useCallback(async () => {
+    if (details !== null) return details;
+    const res = await refresh();
+    return res.data ?? null;
+  }, [details, refresh]);
+
   return {
-    details,
+    getDetails,
     refresh,
     login,
     logout,

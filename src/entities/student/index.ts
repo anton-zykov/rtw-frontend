@@ -6,4 +6,3 @@ export { getTaskTypes } from './api/get-task-types';
 export { mapTaskNames } from './model/map-task-names';
 export type { AdverbsTask } from './types/AdverbsTask.type';
 export type { GenitiveTask } from './types/GenitiveTask.type';
-export type { TaskType } from './types/TaskType.type';

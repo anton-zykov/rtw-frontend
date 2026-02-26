@@ -1,12 +1,12 @@
-import { useUser } from '@/entities/user';
+// import { useUser } from '@/entities/user';
 import { Logout } from './Logout';
 
 export function SideMenu () {
-  const { details } = useUser();
-  
+  // const { getDetails } = useUser();
+  // const details = await getDetails();
   return (
     <>
-      <div>Добро пожаловать {details?.id}</div>
+      <div>Добро пожаловать</div>
       <Logout />
     </>
   );

@@ -1,12 +1,7 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_protected/admin')({
-  component: AdminComponent,
-  beforeLoad: ({ context }) => {
-    if (context.user.details?.role !== 'admin') {
-      redirect({ to: '/', throw: true });
-    }
-  },
+  component: AdminComponent
 });
 
 function AdminComponent () {

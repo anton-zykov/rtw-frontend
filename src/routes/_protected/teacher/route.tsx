@@ -1,12 +1,7 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_protected/teacher')({
-  component: TeacherComponent,
-  beforeLoad: ({ context }) => {
-    if (context.user.details?.role !== 'teacher') {
-      redirect({ to: '/', throw: true });
-    }
-  },
+  component: TeacherComponent
 });
 
 function TeacherComponent () {

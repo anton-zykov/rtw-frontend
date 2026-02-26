@@ -21,7 +21,7 @@ export function LoginForm () {
         case 'admin':
           return navigate({ to: '/admin' });
         case 'teacher':
-          return navigate({ to: '/teacher' });
+          return navigate({ to: '/teacher/my-students' });
         case 'student':
           return navigate({ to: '/learn/select-task' });
         default:

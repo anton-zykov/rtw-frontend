@@ -9,10 +9,22 @@ import type { RouterContext } from '@/app';
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
   beforeLoad: async ({ context }) => {
-    if (context.user.details === null) {
-      const res = await context.user.refresh();
-      if (!res.ok && location.pathname !== '/login') {
-        return redirect({ to: '/login', throw: true });
+    const details = await context.user.getDetails();
+    if (!details && location.pathname !== '/login') {
+      return redirect({ to: '/login', throw: true });
+    }
+    if (details) {
+      const currentSubpath = location.pathname.split('/')[1];
+      switch (details.role) {
+        case 'admin':
+          if (currentSubpath !== 'admin') return redirect({ to: '/admin', throw: true });
+          break;
+        case 'teacher':
+          if (currentSubpath !== 'teacher') return redirect({ to: '/teacher', throw: true });
+          break;
+        case 'student':
+          if (currentSubpath !== 'learn') return redirect({ to: '/learn/select-task', throw: true });
+          break;
       }
     }
   },

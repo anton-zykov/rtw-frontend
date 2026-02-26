@@ -1,5 +1,5 @@
 import type { APIResponse } from '@/shared/types/api';
-import type { TaskType } from '../types/TaskType.type';
+import type { TaskType } from '@/shared/types/TaskType.type';
 
 const API_URL = import.meta.env.VITE_API_URL;
 

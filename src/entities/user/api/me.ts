@@ -1,11 +1,9 @@
 import type { APIResponse } from '@/shared/types/api';
+import type { UserDetails } from '../types/UserDetails.type';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-interface MeData {
-  id: string;
-  role: string;
-}
+type MeData = UserDetails;
 
 export async function me (): Promise<APIResponse<MeData>> {
   try {
