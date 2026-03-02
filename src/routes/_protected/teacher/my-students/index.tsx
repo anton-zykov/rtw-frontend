@@ -1,6 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 import { getMyStudents, type TeachersStudent } from '@/entities/teacher';
-import { Stack } from '@mantine/core';
+import { Stack, UnstyledButton } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { useState } from 'react';
+import { EditStudentModal } from './-ui/EditStudentModal';
 
 export const Route = createFileRoute('/_protected/teacher/my-students/')({
   component: MyStudentsComponent,
@@ -9,22 +12,49 @@ export const Route = createFileRoute('/_protected/teacher/my-students/')({
     const res = await getMyStudents({ id: details!.id });
     if (!res.ok) throw new Error(res.message);
     return {
-      students: res.data as TeachersStudent[],
+      students: res.data,
     };
   },
   pendingComponent: () => <div>Loading students...</div>,
   errorComponent: ({ error }) => <div>{error.message}</div>,
-})
+});
 
-function MyStudentsComponent() {
+function MyStudentsComponent () {
   const { students } = Route.useLoaderData();
+  const [opened, { open, close }] = useDisclosure(false);
+  const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
+  const selectedStudent = selectedStudentId
+    ? students.find((s) => s.id === selectedStudentId) ?? null
+    : null;
+
+  const handleEditStudent = (student: TeachersStudent) => () => {
+    setSelectedStudentId(student.id);
+    open();
+  };
+
+  const onClose = () => {
+    close();
+    setTimeout(() => {
+      setSelectedStudentId(null);
+    }, 300);
+  };
+
   return (
-    <div>
+    <>
       <Stack>
         {students.map((student) => (
-          <div key={student.id}>{student.id}</div>
+          <UnstyledButton key={student.id} onClick={handleEditStudent(student)}>
+            {student.fullName ?? student.login}
+          </UnstyledButton>
         ))}
       </Stack>
-    </div>
+      {selectedStudent && (
+        <EditStudentModal
+          student={selectedStudent}
+          opened={opened}
+          onClose={onClose}
+        />
+      )}
+    </>
   );
 }

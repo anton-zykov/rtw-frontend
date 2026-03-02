@@ -6,9 +6,6 @@ export const Route = createFileRoute('/_protected/teacher')({
 
 function TeacherComponent () {
   return (
-    <>
-      <div className="p-2">/teacher</div>
-      <Outlet />
-    </>
+    <Outlet />
   );
 }

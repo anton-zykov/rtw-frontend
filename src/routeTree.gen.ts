@@ -15,7 +15,6 @@ import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as ProtectedTeacherRouteRouteImport } from './routes/_protected/teacher/route'
 import { Route as ProtectedLearnRouteRouteImport } from './routes/_protected/learn/route'
 import { Route as ProtectedAdminRouteRouteImport } from './routes/_protected/admin/route'
-import { Route as ProtectedTeacherIndexRouteImport } from './routes/_protected/teacher/index'
 import { Route as ProtectedAdminIndexRouteImport } from './routes/_protected/admin/index'
 import { Route as ProtectedLearnSelectTaskRouteImport } from './routes/_protected/learn/select-task'
 import { Route as ProtectedTeacherMyStudentsIndexRouteImport } from './routes/_protected/teacher/my-students/index'
@@ -52,11 +51,6 @@ const ProtectedAdminRouteRoute = ProtectedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => ProtectedRouteRoute,
-} as any)
-const ProtectedTeacherIndexRoute = ProtectedTeacherIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ProtectedTeacherRouteRoute,
 } as any)
 const ProtectedAdminIndexRoute = ProtectedAdminIndexRouteImport.update({
   id: '/',
@@ -108,7 +102,6 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginIndexRoute
   '/learn/select-task': typeof ProtectedLearnSelectTaskRoute
   '/admin/': typeof ProtectedAdminIndexRoute
-  '/teacher/': typeof ProtectedTeacherIndexRoute
   '/learn/adverbs': typeof ProtectedLearnAdverbsIndexRoute
   '/learn/genitive': typeof ProtectedLearnGenitiveIndexRoute
   '/learn/stress': typeof ProtectedLearnStressIndexRoute
@@ -118,10 +111,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/learn': typeof ProtectedLearnRouteRouteWithChildren
+  '/teacher': typeof ProtectedTeacherRouteRouteWithChildren
   '/login': typeof LoginIndexRoute
   '/learn/select-task': typeof ProtectedLearnSelectTaskRoute
   '/admin': typeof ProtectedAdminIndexRoute
-  '/teacher': typeof ProtectedTeacherIndexRoute
   '/learn/adverbs': typeof ProtectedLearnAdverbsIndexRoute
   '/learn/genitive': typeof ProtectedLearnGenitiveIndexRoute
   '/learn/stress': typeof ProtectedLearnStressIndexRoute
@@ -138,7 +131,6 @@ export interface FileRoutesById {
   '/login/': typeof LoginIndexRoute
   '/_protected/learn/select-task': typeof ProtectedLearnSelectTaskRoute
   '/_protected/admin/': typeof ProtectedAdminIndexRoute
-  '/_protected/teacher/': typeof ProtectedTeacherIndexRoute
   '/_protected/learn/adverbs/': typeof ProtectedLearnAdverbsIndexRoute
   '/_protected/learn/genitive/': typeof ProtectedLearnGenitiveIndexRoute
   '/_protected/learn/stress/': typeof ProtectedLearnStressIndexRoute
@@ -155,7 +147,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/learn/select-task'
     | '/admin/'
-    | '/teacher/'
     | '/learn/adverbs'
     | '/learn/genitive'
     | '/learn/stress'
@@ -165,10 +156,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/learn'
+    | '/teacher'
     | '/login'
     | '/learn/select-task'
     | '/admin'
-    | '/teacher'
     | '/learn/adverbs'
     | '/learn/genitive'
     | '/learn/stress'
@@ -184,7 +175,6 @@ export interface FileRouteTypes {
     | '/login/'
     | '/_protected/learn/select-task'
     | '/_protected/admin/'
-    | '/_protected/teacher/'
     | '/_protected/learn/adverbs/'
     | '/_protected/learn/genitive/'
     | '/_protected/learn/stress/'
@@ -241,13 +231,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof ProtectedAdminRouteRouteImport
       parentRoute: typeof ProtectedRouteRoute
-    }
-    '/_protected/teacher/': {
-      id: '/_protected/teacher/'
-      path: '/'
-      fullPath: '/teacher/'
-      preLoaderRoute: typeof ProtectedTeacherIndexRouteImport
-      parentRoute: typeof ProtectedTeacherRouteRoute
     }
     '/_protected/admin/': {
       id: '/_protected/admin/'
@@ -332,12 +315,10 @@ const ProtectedLearnRouteRouteWithChildren =
   ProtectedLearnRouteRoute._addFileChildren(ProtectedLearnRouteRouteChildren)
 
 interface ProtectedTeacherRouteRouteChildren {
-  ProtectedTeacherIndexRoute: typeof ProtectedTeacherIndexRoute
   ProtectedTeacherMyStudentsIndexRoute: typeof ProtectedTeacherMyStudentsIndexRoute
 }
 
 const ProtectedTeacherRouteRouteChildren: ProtectedTeacherRouteRouteChildren = {
-  ProtectedTeacherIndexRoute: ProtectedTeacherIndexRoute,
   ProtectedTeacherMyStudentsIndexRoute: ProtectedTeacherMyStudentsIndexRoute,
 }
 
