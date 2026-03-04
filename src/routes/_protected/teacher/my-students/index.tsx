@@ -3,7 +3,7 @@ import { getMyStudents, type TeachersStudent } from '@/entities/teacher';
 import { Stack, UnstyledButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
-import { EditStudentModal } from './-ui/EditStudentModal';
+import { EditStudentDrawer } from './-ui/EditStudentDrawer';
 
 export const Route = createFileRoute('/_protected/teacher/my-students/')({
   component: MyStudentsComponent,
@@ -32,11 +32,9 @@ function MyStudentsComponent () {
     open();
   };
 
-  const onClose = () => {
+  const handleCloseDrawer = () => {
     close();
-    setTimeout(() => {
-      setSelectedStudentId(null);
-    }, 300);
+    setSelectedStudentId(null);
   };
 
   return (
@@ -48,13 +46,11 @@ function MyStudentsComponent () {
           </UnstyledButton>
         ))}
       </Stack>
-      {selectedStudent && (
-        <EditStudentModal
-          student={selectedStudent}
-          opened={opened}
-          onClose={onClose}
-        />
-      )}
+      <EditStudentDrawer
+        student={selectedStudent}
+        opened={opened}
+        onClose={handleCloseDrawer}
+      />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import type { APIResponse } from '@/shared/types/api';
-import type { UUID } from '@/shared/types/uuid';
+import type { UUID } from '@/shared/types/UUID';
 
 const API_URL = import.meta.env.VITE_API_URL;
 

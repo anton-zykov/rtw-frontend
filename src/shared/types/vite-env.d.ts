@@ -1,3 +1,5 @@
+declare module '@tabler/icons-react';
+
 interface ImportMetaEnv {
   readonly VITE_KEY_PATH: string
   readonly VITE_CERT_PATH: string

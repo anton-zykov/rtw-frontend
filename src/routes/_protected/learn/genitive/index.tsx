@@ -4,7 +4,7 @@ import { checkGenitiveExerciseAnswers, getGenitiveExercise } from '@/entities/st
 import { Button, Grid, Radio, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { OptionCard } from './-ui/OptionCard';
-import type { UUID } from '@/shared/types/uuid';
+import type { UUID } from '@/shared/types/UUID';
 import styles from './index.module.css';
 
 export const Route = createFileRoute('/_protected/learn/genitive/')({

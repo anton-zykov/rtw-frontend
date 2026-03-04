@@ -1,23 +1,24 @@
 import type { APIResponse } from '@/shared/types/api';
 import type { UUID } from '@/shared/types/UUID';
-import type { TaskType } from '@/shared/types/TaskType.type';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-interface UpdateTaskTypesParams {
+interface UpdateStudentParams {
   studentId: UUID;
-  taskTypes: TaskType[];
+  login?: string;
+  fullName?: string;
+  telegramId?: string;
 }
 
-export async function updateTaskTypes ({ studentId, taskTypes }: UpdateTaskTypesParams): Promise<APIResponse<void>> {
+export async function updateStudent ({ studentId, login, fullName, telegramId }: UpdateStudentParams): Promise<APIResponse<void>> {
   try {
-    const response = await fetch(`${API_URL}/student/update-task-types`, {
+    const response = await fetch(`${API_URL}/user/update-student`, {
       credentials: 'include',
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ studentId, taskTypes }),
+      body: JSON.stringify({ studentId, login, fullName, telegramId }),
     });
 
     return response.ok
