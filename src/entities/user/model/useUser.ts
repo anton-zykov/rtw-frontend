@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useCallback, use, useState } from 'react';
 import { login as loginApi } from '../api/login';
 import { logout as logoutApi } from '../api/logout';
 import { me as meApi } from '../api/me';
@@ -14,10 +14,10 @@ export function useUserImpl () {
     return res;
   }, []);
 
-  const login = useCallback(async (params: { login: string; password: string }) => {
+  const login = async (params: { login: string; password: string }) => {
     const res = await loginApi(params);
     return res;
-  }, []);
+  };
 
   const logout = useCallback(async () => {
     const res = await logoutApi();
@@ -44,7 +44,7 @@ type UserContextValue = ReturnType<typeof useUserImpl>;
 export const UserContext = createContext<UserContextValue | null>(null);
 
 export function useUser () {
-  const context = useContext(UserContext);
+  const context = use(UserContext);
   if (!context) {
     throw new Error('useUser must be used within UserProvider');
   }

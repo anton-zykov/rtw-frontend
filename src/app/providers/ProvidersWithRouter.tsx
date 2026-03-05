@@ -7,7 +7,7 @@ export function ProvidersWithRouter () {
     <UserProvider>
       <StylesProviders>
         <RouterWithContext />
-      </StylesProviders>  
+      </StylesProviders>
     </UserProvider>
   );
 }

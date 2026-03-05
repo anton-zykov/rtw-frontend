@@ -6,7 +6,7 @@ export function RouterWithContext () {
   const user = useUser();
 
   // const prevDetailsRef = useRef(user.details);
-  
+
   // Invalidate router when user details change to recompute context
   // useEffect(() => {
   //   if (prevDetailsRef.current !== user.details) {
@@ -14,7 +14,7 @@ export function RouterWithContext () {
   //     router.invalidate();
   //   }
   // }, [user.details]);
-  
+
   return (
     <RouterProvider router={router} context={{ user }} />
   );

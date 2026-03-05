@@ -3,11 +3,10 @@ import { UserContext, useUserImpl } from '@/entities/user';
 
 export function UserProvider ({ children }: { children: ReactNode }) {
   const user = useUserImpl();
-  
+
   return (
-    <UserContext.Provider value={user}>
+    <UserContext value={user}>
       {children}
-    </UserContext.Provider>
+    </UserContext>
   );
 }
-
