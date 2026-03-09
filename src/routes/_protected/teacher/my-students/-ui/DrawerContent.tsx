@@ -51,7 +51,7 @@ export function DrawerContent ({ student }: DrawerContentProps) {
             <Checkbox value="adverbs" label={mapTaskNames.adverbs} />
             <Checkbox value="genitive" label={mapTaskNames.genitive} />
             <Checkbox value="stress" label={mapTaskNames.stress} />
-            <Checkbox value="tricky" label={mapTaskNames.tricky} />
+            <Checkbox value="tricky" label={mapTaskNames.tricky} disabled />
           </Group>
         </Checkbox.Group>
 
