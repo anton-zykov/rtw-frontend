@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import { IconCheck, IconX } from '@tabler/icons-react';
-import { updateStudent, updateTaskTypes } from '@/entities/teacher';
+import { updateStudent, updateStudentsAge, updateTaskTypes } from '@/entities/teacher';
 import type { TeachersStudent } from '@/entities/teacher';
 
 export function useEditStudentForm (student: TeachersStudent) {
@@ -16,6 +16,7 @@ export function useEditStudentForm (student: TeachersStudent) {
       login: student.login,
       fullName: student.fullName ?? '',
       telegramId: student.telegramId ?? '',
+      age: student.age,
       taskTypes: Array.from(student.taskTypes),
     },
   });
@@ -23,13 +24,14 @@ export function useEditStudentForm (student: TeachersStudent) {
   const handleSave = () => {
     const hasStudentChanges =
       form.isDirty('login') || form.isDirty('fullName') || form.isDirty('telegramId');
+    const hasAgeChanges = form.isDirty('age');
     const hasTaskTypeChanges = form.isDirty('taskTypes');
 
-    if (!hasStudentChanges && !hasTaskTypeChanges) return;
+    if (!hasStudentChanges && !hasAgeChanges && !hasTaskTypeChanges) return;
 
     setLoading();
 
-    type OperationKind = 'student' | 'taskTypes';
+    type OperationKind = 'student' | 'age' | 'taskTypes';
     const operations: { kind: OperationKind; promise: Promise<{ ok: boolean; message?: string }> }[] = [];
 
     if (hasStudentChanges) {
@@ -40,6 +42,16 @@ export function useEditStudentForm (student: TeachersStudent) {
           login: form.values.login,
           fullName: form.values.fullName || undefined,
           telegramId: form.values.telegramId || undefined
+        })
+      });
+    }
+
+    if (hasAgeChanges) {
+      operations.push({
+        kind: 'age',
+        promise: updateStudentsAge({
+          studentId: student.id,
+          age: form.values.age
         })
       });
     }
@@ -60,6 +72,10 @@ export function useEditStudentForm (student: TeachersStudent) {
       form.setFieldValue('telegramId', student.telegramId ?? '');
     };
 
+    const resetAgeField = () => {
+      form.setFieldValue('age', student.age);
+    };
+
     const resetTaskTypesField = () => {
       form.setFieldValue('taskTypes', Array.from(student.taskTypes));
     };
@@ -67,9 +83,11 @@ export function useEditStudentForm (student: TeachersStudent) {
     void Promise.all(operations.map((op) => op.promise))
       .then((results) => {
         const studentIdx = operations.findIndex((op) => op.kind === 'student');
+        const ageIdx = operations.findIndex((op) => op.kind === 'age');
         const taskTypesIdx = operations.findIndex((op) => op.kind === 'taskTypes');
 
         const studentOk = studentIdx === -1 || results[studentIdx]?.ok;
+        const ageOk = ageIdx === -1 || results[ageIdx]?.ok;
         const taskTypesOk = taskTypesIdx === -1 || results[taskTypesIdx]?.ok;
 
         if (studentIdx !== -1 && studentOk) {
@@ -89,6 +107,23 @@ export function useEditStudentForm (student: TeachersStudent) {
           resetStudentFields();
         }
 
+        if (ageIdx !== -1 && ageOk) {
+          notifications.show({
+            color: 'teal',
+            message: 'Класс обновлен',
+            icon: <IconCheck size={18} />,
+            autoClose: 2000,
+          });
+        } else if (ageIdx !== -1 && !ageOk) {
+          notifications.show({
+            color: 'red',
+            message: 'Не удалось сохранить класс',
+            icon: <IconX size={18} />,
+            autoClose: 4000,
+          });
+          resetAgeField();
+        }
+
         if (taskTypesIdx !== -1 && taskTypesOk) {
           notifications.show({
             color: 'teal',
@@ -106,7 +141,7 @@ export function useEditStudentForm (student: TeachersStudent) {
           resetTaskTypesField();
         }
 
-        if (studentOk && taskTypesOk) {
+        if (studentOk && ageOk && taskTypesOk) {
           void router.invalidate();
         }
       })
@@ -122,6 +157,7 @@ export function useEditStudentForm (student: TeachersStudent) {
           autoClose: 4000,
         });
         resetStudentFields();
+        resetAgeField();
         resetTaskTypesField();
       });
   };

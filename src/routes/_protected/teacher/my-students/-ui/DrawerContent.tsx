@@ -4,6 +4,7 @@ import {
   Checkbox,
   Group,
   LoadingOverlay,
+  NumberInput,
   Stack,
   TextInput,
 } from '@mantine/core';
@@ -40,6 +41,14 @@ export function DrawerContent ({ student }: DrawerContentProps) {
           key={form.key('telegramId')}
           disabled
           {...form.getInputProps('telegramId')}
+        />
+
+        <NumberInput
+          label="Класс"
+          key={form.key('age')}
+          min={student.age}
+          max={11}
+          {...form.getInputProps('age')}
         />
 
         <Checkbox.Group

@@ -4,6 +4,7 @@ import type { UUID } from '@/shared/types/UUID';
 export interface TeachersStudent {
   id: UUID;
   login: string;
+  age: number;
   active: boolean;
   fullName: string | null;
   email: string | null;

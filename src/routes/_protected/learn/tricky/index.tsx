@@ -5,5 +5,5 @@ export const Route = createFileRoute('/_protected/learn/tricky/')({
 });
 
 function TrickyIndexComponent () {
-  return <div>Hello "/_protected/learn/tricky/"!</div>;
+  return <div>Здесь пока ничего нет :(</div>;
 }
